@@ -41,15 +41,15 @@ void read_yaml(const YAML::Node& node, boost::property_tree::ptree& pt)
     }
 }
 
-void read_yaml(const std::string& fileName, boost::property_tree::ptree& pt)
+void read_yaml(std::istream& stream, boost::property_tree::ptree& pt)
 {
-    YAML::Node node = YAML::LoadFile(fileName);
+    YAML::Node node = YAML::Load(std::string(std::istreambuf_iterator<char>(stream), {}));
     read_yaml(node, pt);
 }
 
-void read_yaml(const std::istringstream& stream, boost::property_tree::ptree& pt)
+void read_yaml(const std::string& fileName, boost::property_tree::ptree& pt)
 {
-    YAML::Node node = YAML::Load(stream.str());
+    YAML::Node node = YAML::LoadFile(fileName);
     read_yaml(node, pt);
 }
 
