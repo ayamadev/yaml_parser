@@ -11,5 +11,3 @@ write_xml("test.xml", pt);
 ```
 
 Compiling yaml_parser requires [yaml-cpp](https://github.com/jbeder/yaml-cpp) and [Boost.PropertyTree](http://www.boost.org/doc/libs/1_65_1/doc/html/property_tree.html).
-
-Currently it has only read_yaml but no writing function.
