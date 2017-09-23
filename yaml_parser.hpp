@@ -1,6 +1,7 @@
 #pragma once
 
 #include <boost/property_tree/ptree.hpp>
+#include <fstream>
 #include <string>
 #include <sstream>
 #include <yaml-cpp/yaml.h>
@@ -50,6 +51,39 @@ void read_yaml(const std::istringstream& stream, boost::property_tree::ptree& pt
 {
     YAML::Node node = YAML::Load(stream.str());
     read_yaml(node, pt);
+}
+
+void write_yaml(YAML::Node& node, const boost::property_tree::ptree& pt)
+{
+    using boost::property_tree::ptree;
+
+    for (auto& item: pt) {
+        auto key = item.first;
+        YAML::Node child;
+        write_yaml(child, item.second);
+        if (key == "") {
+            node.push_back(child);
+        } else {
+            node[key] = child;
+        }
+    }
+
+    if (pt.get_value<std::string>() != "") {
+        node = YAML::Node(pt.get_value<std::string>());
+    }
+}
+
+void write_yaml(std::ostream& stream, const boost::property_tree::ptree& pt)
+{
+    YAML::Node node;
+    write_yaml(node, pt);
+    stream << node;
+}
+
+void write_yaml(const std::string& fileName, const boost::property_tree::ptree& pt)
+{
+    std::ofstream stream(fileName);
+    write_yaml(stream, pt);
 }
 
 }
