@@ -2,9 +2,8 @@
 #define YAML_PARSER_HPP
 
 #include <boost/property_tree/ptree.hpp>
-#include <fstream>
-#include <string>
-#include <sstream>
+#include <istream>
+#include <ostream>
 #include <yaml-cpp/yaml.h>
 
 namespace yaml_parser {
