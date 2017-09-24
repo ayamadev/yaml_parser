@@ -1,4 +1,4 @@
-#pragma once
+#include <yaml_parser.hpp>
 
 #include <boost/property_tree/ptree.hpp>
 #include <fstream>
