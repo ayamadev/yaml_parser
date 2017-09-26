@@ -17,12 +17,14 @@ include_directories(include/)
 find_path(YAML_CPP_INCLUDE yaml-cpp/yaml.h)
 include_directories(${YAML_CPP_INCLUDE})
 
+find_library(YAML_CPP_LIB yaml-cpp)
+
 add_library(yaml_parser ${LIB_TYPE} ${SRC})
+target_link_libraries(yaml_parser ${YAML_CPP_LIB})
 
 # Test
 enable_testing()
 add_executable(test1 test/test1.cpp)
-find_library(YAML_CPP_LIB yaml-cpp)
 target_link_libraries(test1 yaml_parser ${YAML_CPP_LIB})
 add_test(NAME test1 COMMAND test1)
 
@@ -36,6 +38,7 @@ install(
 	TARGETS yaml_parser
 	LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
 	ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+	RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
 	PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_PREFIX}/include
 )
 
