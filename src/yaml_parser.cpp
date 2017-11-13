@@ -35,6 +35,10 @@ void read_yaml(const YAML::Node& node, boost::property_tree::ptree& pt)
         }
         break;
 
+    case YAML::NodeType::Null:
+        pt = ptree();
+        break;
+
     default:
         assert(false && "Unknown node type.");
         break;
